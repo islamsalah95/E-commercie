@@ -30,7 +30,7 @@
 <body>
     <!-- header start -->
 
-<header class="header-area gray-bg clearfix">
+<header class="header-area gray-bg clearfix" style="background-color:rgb(29, 103, 105) ">
     <div class="header-bottom">
         <div class="container">
             <div class="row">
@@ -182,13 +182,13 @@
                                                <a href={{route('product-details')}}>product details</a>
                                             </li>
                                             <li>
-                                               <a href={{route('cart-page')}}>cart page</a>
+                                               <a href={{route('cart.list')}}>cart page</a>
                                             </li>
                                             <li>
                                                <a href={{route('checkout')}}>checkout</a>
                                             </li>
                                             <li>
-                                               <a href={{route('wishlist')}}>wishlist</a>
+                                               <a href={{route('cart.list')}}>wishlist</a>
                                             </li>
                                             <li>
                                                <a href={{route('my-account')}}>my account</a>
@@ -302,7 +302,7 @@
                                     </h4>
                                 </div>
                                 <div class="shopping-cart-btn">
-                                   <a href={{route('cart-page')}}>view cart</a>
+                                   <a href={{route('cart.list')}}>view cart</a>
                                    <a href={{route('checkout')}}>checkout</a>
                                 </div>
                             </div>
@@ -340,13 +340,13 @@
                                        <a href={{route('product-details')}}>product details</a>
                                     </li>
                                     <li>
-                                       <a href={{route('cart-page')}}>cart page</a>
+                                       <a href={{route('cart.list')}}>cart page</a>
                                     </li>
                                     <li>
                                        <a href={{route('checkout')}}>checkout</a>
                                     </li>
                                     <li>
-                                       <a href={{route('wishlist')}}>wishlist</a>
+                                       <a href={{route('cart.list')}}>wishlist</a>
                                     </li>
                                     <li>
                                        <a href={{route('my-account')}}>my account</a>

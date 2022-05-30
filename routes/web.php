@@ -5,11 +5,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OnlinePayment;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
+use Illuminate\Auth\Middleware\Authenticate;
+use App\Http\Controllers\Offers\OfferController;
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\PaymentProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +24,7 @@ use App\Http\Controllers\WishlistController;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| contains the "web" middleware group. Now create something great!cart.list
 |
 */
 Route::get('about-us', [Pages::class, 'aboutus'])->name('about-us');
@@ -120,4 +126,23 @@ Route::get('adminstrationlogin', [Products::class, 'adminstrationlogin'])->name(
  Route::get('checkAdminstration', [Products::class, 'checkAdminstration'])->name('checkAdminstration');
  Route::get('WelcomeAdminStration', [Products::class, 'WelcomeAdminStration'])->name('WelcomeAdminStration')->middleware('adminstration');
  Route::post('logoutadminstration', [Products::class, 'logoutadminstration'])->name('logoutadminstration');
+
+///////////////////////////////////////////// cart/////////////////////////////////////////>>>>>>>>>>>>>>>>>>>>
+Route::middleware([Authenticate::class])->group(function () {
+ Route::get('ppp', [CartController::class, 'productList'])->name('products.list');
+Route::get('cartList', [CartController::class, 'cartList'])->name('cart.list');
+Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
+Route::match(['put', 'patch','post'],'update-cart', [CartController::class, 'updateCart'])->name('cart.update');
+Route::get('remove/{id}', [CartController::class, 'removeCart'])->name('cart.remove');
+Route::get('cartStore', [CartController::class, 'cartStore'])->name('cart.cartStore');
+Route::get('clear/{id}', [CartController::class, 'clearAllCart'])->name('cart.clear');
+
+Route::get('getTotalPrice', [CartController::class, 'getTotalPrice'])->name('getTotalPrice');
+Route::get('getTotalItem', [CartController::class, 'getTotalItem'])->name('getTotalItem');
+Route::post('onlinePayment', [OnlinePayment::class, 'getCheckOutId'])->name('cart.onlinePayment');
+################Begin paymentGateways Routes ########################
+Route::get('stripe/', [StripePaymentController::class, 'stripe'])->name('offers.checkout');
+Route::post('stripe/post', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+Route::get('productscart/{price}', [productscart::class, 'productscart'])->name('productscart');
+});
 

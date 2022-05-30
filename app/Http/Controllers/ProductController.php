@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
+use App\Http\Requests\validationRequest;
+use App\Http\Requests\validationRequestUpdate;
 
 class ProductController extends Controller
 {
@@ -25,36 +27,27 @@ class ProductController extends Controller
  * @param  \Illuminate\Http\Request  $request
  * @return \Illuminate\Http\Response
  */
-    public function store(Request $request)
+    public function store(validationRequest $request)
     {
-        // dd(public_path('assets\images\products'));
-        // dd($request->all());
-        $validated = $request->validate([
-            'name_en' => ['required', 'max:255'],
-            'name_ar' => ['required', 'max:255'],
-            'code' => ['required','unique'],
-            'price' => ['required', 'numeric'],
-            'quantity' => ['nullable', 'integer', 'max:999'],
-            'desc_en' => ['required', 'max:255'],
-            'desc_ar' => ['required', 'max:255'],
-            'id_brand' => ['nullable', 'integer'],
-            'id_subcategorie' => ['nullable', 'integer'],
-            'image'=> ['required','max:100']
-        ]);
-$data =$request->except('_token','image');
+
 if ($request->hasFile('image')) {
-    $image = $request->file('image');
-    $destination_path =$request->file('image')->move(public_path('assets\images\products'),$image);;
-    $image_name = $image->GetClientOriginName();
-    $path = $request->file('image')->storeAs($destination_path,$image_name);
-    $input['image']=$image_name;
-    }
-    // $image =$data['image'];
-        // $ProductImage = uniqid() . '.' . $request->file('image')->extension();
-        // $request->file('image')->move(public_path('assets\images\products'),$ProductImage);
-        // $data =$request->except('_token','image');
-        // $data['image'] = $ProductImage;
-        DB::table("products")->insert($data);
+       $file_extension=$request->file('image')->getClientOriginalExtension();
+        $file_name=time().'.'.$file_extension;
+        $request->image->move(public_path('website/assets/img/product/'),$file_name); }
+
+        DB::table("products")->insert([
+                    'name_en' =>$request->name_en,
+                    'name_ar' =>$request->name_ar,
+                    'status' =>$request->status,
+                    'code' => $request->code,
+                    'price' => $request->price,
+                    'quantity' =>$request->quantity,
+                    'desc_en' => $request->desc_en,
+                    'desc_ar' => $request->desc_ar,
+                    'id_subcategorie'=>$request->id_subcategorie,
+                    'image'=>$file_name
+]);
+
         return redirect(route('dash.index'))->with('success', 'product add successful');
     }
 
@@ -75,52 +68,36 @@ if ($request->hasFile('image')) {
     function edit ($id){
         $subcategories = DB::table('subcategories')->get();
         $brands = DB::table('brands')->get();
-        $product = DB::table('products')->where('id',$id)->first();
+        $products = DB::table('products')->where('id',$id)->get();
 
-        return view("dash/layouts/products/edit",compact('subcategories','brands','product')) ;
+        return view("dash/layouts/products/edit",compact('subcategories','brands','products')) ;
 
 
     }
 
-    public function update(Request $request,$id)
+    public function update(validationRequestUpdate $request,$id)
     {
 
-        $validated = $request->validate([
-            'name_en' => ['required', 'max:255'],
-            'name_ar' => ['required', 'max:255'],
-            'code' => ['required',"unique:products,code,$id,id"],
-            'price' => ['required', 'numeric'],
-            'quantity' => ['nullable', 'integer', 'max:999'],
-            'desc_en' => ['required', 'max:255'],
-            'desc_ar' => ['required', 'max:255'],
-            'id_brand' => ['nullable', 'integer'],
-            'id_subcategorie' => ['nullable', 'integer'],
-            'image'=> ['nullable','max:100']
-
-
-
-        ]);
-
-
-
-
-        $product = DB::table('products')->find($id);
-        $data =$request->except('_token','image','_method');
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $destination_path =$request->file('image')->move(public_path('assets\images\products'),$image);
-            $image_name = $image->GetClientOriginName();
-            $path = $request->file('image')->storeAs($destination_path,$image_name);
-           $RemovePhotoPath = public_path( "assets\images\products\\{$product->image} ");
-           if (file_exists( $RemovePhotoPath)) {
-               unlink( $RemovePhotoPath);}
+            $file_extension=$request->file('image')->getClientOriginalExtension();
+             $file_name=time().'.'.$file_extension;
+             $request->image->move(public_path('website/assets/img/product/'),$file_name); }
 
+             DB::table("products")->where('id',$id)->update([
+                         'name_en' =>$request->name_en,
+                         'name_ar' =>$request->name_ar,
+                         'status' =>$request->status,
+                         'code' => $request->code,
+                         'price' => $request->price,
+                         'quantity' =>$request->quantity,
+                         'desc_en' => $request->desc_en,
+                         'desc_ar' => $request->desc_ar,
+                         'id_subcategorie'=>$request->id_subcategorie,
+                         'image'=>$file_name
+     ]);
 
+     return redirect()->route('dash.index')->with('success', 'product update successful');
 
-        }
-
-        DB::table("products")->where('id',$id)->update($data);
-        return redirect()->route('dash.index')->with('success', 'product update successful');
     }
 
 

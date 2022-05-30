@@ -14,6 +14,8 @@
             </div>
         @endif
         </div>
+        @foreach ($products as $product)
+
     <div class="col-12">
         <form action="{{route('dash.update',['id'=>$product->id])}}" method="post"
             enctype="multipart/form-data">
@@ -47,24 +49,20 @@
                 <div class="col-4">
                     <label for="status">Status</label>
                     <select name="status" id="status" class="form-control">
-                        <option @selected($product->status === "1")  value="1">Active</option>
-                        <option @selected($product->status === "0")  value="0">Not Active</option>
+                        <option  value="1">Active</option>
+                        <option  value="0">Not Active</option>
                     </select>
+                </div>
                 </div>
                 <div class="col-4">
                     <label for="id_subcategorie">Sub Category</label>
                     <select name="id_subcategorie" id="id_subcategorie" class="form-control">
-                          @foreach ($subcategories as $subcategorie)
+                        @foreach ($subcategories as $subcategorie)
+                        <option   value="{{$subcategorie->id}}" >{{$subcategorie->name_en}}</option>
 
-                        <option
-                        @selected($product->id_subcategorie ==="$subcategorie->id") value="{{$subcategorie->id}}">{{$subcategorie->name_en }}
-                        </option>
                         @endforeach
 
                     </select>
-
-
-                    
                 </div>
 
             </div>
@@ -84,12 +82,13 @@
                 </div>
                 <div class="col-4">
 
-               <img src="{{ asset('assets/images/products/' . $product->image ) }}" alt="{{$product->name_en}}">
+               <img src="{{ asset('website/assets/img/product/' . $product->image ) }}" alt="{{$product->name_en}}">
 
 
             </div>
 
             </div>
+            @endforeach
             <div class="form-row">
                 <div class="col-3 my-3">
                     <button class="btn btn-outline-primary rounded btn-sm"> update </button>

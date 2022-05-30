@@ -48,11 +48,14 @@
                 <div class="col-4">
                     <label for="id_subcategorie">Sub Category</label>
                     <select name="id_subcategorie" id="id_subcategorie" class="form-control">
+                        @foreach ($subcategories as $subcategorie)
+                        <option   value="{{$subcategorie->id}}" >{{$subcategorie->name_en}}</option>
 
+                        @endforeach
 
                     </select>
                 </div>
-             
+
             </div>
             <div class="form-row my-3">
                 <div class="col-6">

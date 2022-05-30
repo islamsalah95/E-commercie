@@ -20,13 +20,12 @@ class Adminstration
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-
         foreach ($guards as $guard) {
             if (!Auth::guard('adminstration')->check()) {
                 return redirect(route('adminstrationlogin'));
             }
         }
-
+        // $cart=auth()->user()->cart;
         return $next($request);
     }
 }

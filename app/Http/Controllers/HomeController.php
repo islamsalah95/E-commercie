@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 
@@ -27,6 +28,6 @@ class HomeController extends Controller
 
         // $products = DB::table('product')->get();
         // return view("product", compact('products'));
-       return view('website.wishlist');
+        return redirect()->route('cart.list');
     }
 }

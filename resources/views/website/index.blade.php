@@ -161,37 +161,24 @@
 
                                     <span>-{{$product->sale}} </span>
                                     @endif
-                                    <div class="product-action">
-                                        <a
-                                            class="action-wishlist"
-                                            href="#"
-                                            title="Wishlist"
-                                        >
-                                            <i
-                                                class="ion-android-favorite-outline"
-                                            ></i>
-                                        </a>
-                                        <a
-                                            class="action-cart"
-                                            href="#"
-                                            title="Add To Cart"
-                                        >
-                                            <i
-                                                class="ion-ios-shuffle-strong"
-                                            ></i>
-                                        </a>
-                                        <a
-                                            class="action-compare"
-                                            href="#"
-                                            data-target="#exampleModal"
-                                            data-toggle="modal"
-                                            title="Quick View"
-                                        >
-                                            <i
-                                                class="ion-ios-search-strong"
-                                            ></i>
-                                        </a>
-                                    </div>
+
+
+
+
+<div class="product-action">
+  <a class="action-cart"
+        title="Add To Cart">
+<form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+   <input type="hidden" value="{{ $product->id }}" name="id">
+   <input type="hidden" value="{{ $product->name_en}}" name="name">
+   <input type="hidden" value="{{ $product->price }}" name="price">
+   <input type="hidden" value="{{asset('website/assets/img/product/' . $product->image )}}"  name="image">
+   <input type="hidden" value="{{ $product->quantity}}" name="quantity">
+ <button  class="ion-ios-shuffle-strong"></button>
+</form>
+</div>
+
                                 </div>
                                 <div
                                     class="product-content text-left"
@@ -404,7 +391,23 @@ class="breadcrumb-area bg-image-3 ptb-150"  style="background-image:url({{url('w
                     </div>
                 </div>
             </div>
-        </div>
+        </div>title="Add To Cart"
     </div> --}}
     <!-- Newsletter Araea End -->
  @include('website.foter')
+
+
+ <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+   <input type="hidden" value="{{ $product->id }}" name="id">
+   <input type="hidden" value="{{ $product->name_en}}" name="name">
+   <input type="hidden" value="{{ $product->price }}" name="price">
+   <input type="hidden" value="{{asset('website/assets/img/product/' . $product->image )}}"  name="image">
+   <input type="hidden" value="{{ $product->quantity}}" name="quantity">
+   <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
+</form>
+
+
+
+
+

@@ -32,14 +32,13 @@ class Products extends Controller
 
     public function comment(Request $request,$product_id,$name)
     {
-
-        // return dd($request);
+        $request->validate(['message' => 'required|max:255']);
         DB::table('comments')->insert([
             'name' => $name,
             'message'=>$request->message,
             'product_id'=>$product_id
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success','add comment succsessful');
     }
 // <<<<<<<<<<<<<<<<<<<<<<all products>>>>>>>>>>>>>>>>>
 public function AllProducts()

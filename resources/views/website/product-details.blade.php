@@ -155,20 +155,20 @@
                             <div class="quality-add-to-cart">
                                 <div class="quality">
                                     <label>Qty:  {{$product->quantity }}</label>
-                                    {{-- <input
-                                        class="cart-plus-minus-box"
-                                        type="text"
-                                        name="qtybutton"
-                                        value="02"
-                                    /> --}}
                                 </div>
+
                                 <div class="shop-list-cart-wishlist">
-                                    <a title="Add To Cart" href="#">
-                                        <i class="icon-handbag"></i>
-                                    </a>
-                                    <a title="Wishlist" href="#">
-                                        <i class="icon-heart"></i>
-                                    </a>
+                                      <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+                                          @csrf
+                                         <input type="hidden" value="{{ $product->id }}" name="id">
+                                         <input type="hidden" value="{{ $product->name_en}}" name="name">
+                                         <input type="hidden" value="{{ $product->price }}" name="price">
+                                         <input type="hidden" value="{{asset('website/assets/img/product/' . $product->image )}}"  name="image">
+                                         <input type="hidden" value="{{ $product->quantity}}" name="quantity">
+                                       <span>Add To Cart</span>
+                                         <button class="ion-ios-shuffle-strong"></button>
+                                      </form>
+
                                 </div>
                             </div>
                             {{-- <div class="pro-dec-categories">
@@ -368,6 +368,22 @@
                                                 @if (!Auth::guard('web')->check())
                                                  <h4><span>to add review  </span><a style="color:blue " href="{{route('login')}}">Login</a></h4>
                                                 @else
+                                                @if ($errors->any())
+                                                @foreach($errors->all() as $error)
+                                                <div class="alert alert-danger">
+                                                <ul>
+                                                    <li>{{$error}}</li>
+                                                </ul>
+                                                </div>
+                                                @endforeach
+                                                @endif
+                                                @if(session()->has('success'))
+                                                <div class="alert alert-success">
+                                                    <ul>
+                                                        <li>add review success</li>
+                                                    </ul>
+                                                    </div>
+                                                @endif
                                                <button id="butto" class="btn btn-success">add</button>
                                                 @endif
                                             </div>
