@@ -26,5 +26,7 @@ return [
     'requiredName' => 'الاسم مطلوب',
     'requiredPrice' => 'السعر مطلوب',
     'requiredid' => 'اى دى مطلوب',
+    'langStatus' => 'العربية',
+
 
 ];

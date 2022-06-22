@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\MailNewproducts;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class DashController extends Controller
 {
@@ -12,8 +15,11 @@ class DashController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function dash(Request $request)
     {
         return view("dash.main") ;
     }
+
+
+
 }

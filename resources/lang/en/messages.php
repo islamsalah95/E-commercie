@@ -27,7 +27,8 @@ return [
     'requiredName' => 'The name field is required required',
     'requiredPrice' => 'The price field is required required',
     'requiredid' => 'The id field is required required',
-    
+    'langStatus' => 'English',
+
 ];
 
 ?>

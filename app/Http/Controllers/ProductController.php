@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Unique;
 use App\Http\Requests\validationRequest;
 use App\Http\Requests\validationRequestUpdate;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ProductController extends Controller
 {
+
     function create (){
 
         $subcategories = DB::table('subcategories')->get();
@@ -57,7 +59,12 @@ if ($request->hasFile('image')) {
 
     function index (){
 
-        $products = DB::table('products')->get();
+        $products = DB::table('products')->
+        select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
+         'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+          'updated_at'
+       )->paginate(PaginationCount);
         return view("dash/layouts/products/index",compact('products')) ;
 
 
@@ -68,7 +75,14 @@ if ($request->hasFile('image')) {
     function edit ($id){
         $subcategories = DB::table('subcategories')->get();
         $brands = DB::table('brands')->get();
-        $products = DB::table('products')->where('id',$id)->get();
+        $products = DB::table('products')
+        ->
+        select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
+         'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+          'updated_at'
+       )
+        ->where('id',$id)->get();
 
         return view("dash/layouts/products/edit",compact('subcategories','brands','products')) ;
 
@@ -83,7 +97,14 @@ if ($request->hasFile('image')) {
              $file_name=time().'.'.$file_extension;
              $request->image->move(public_path('website/assets/img/product/'),$file_name); }
 
-             DB::table("products")->where('id',$id)->update([
+             DB::table("products")
+             ->
+             select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+             'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
+              'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+               'updated_at'
+            )
+             ->where('id',$id)->update([
                          'name_en' =>$request->name_en,
                          'name_ar' =>$request->name_ar,
                          'status' =>$request->status,

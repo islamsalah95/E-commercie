@@ -2,29 +2,36 @@
 
 namespace App\Http\Controllers;
 use Validator;
+use App\Models\User;
 use App\Models\Viewer;
 use Illuminate\Http\Request;
+use App\Mail\MailNewproducts;
+use App\Mail\sendMailNewOffer;
 use App\traits\ProductsTraits;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Events\IncreaseVideoEvents;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules\Unique;
 use App\Http\Requests\validationRequest;
-use Illuminate\Http\JsonResponse;
-
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Products extends Controller
 {
-
-
     public function showDetails($id)
     {
-        $products = DB::table('products')->where('id', $id)->get();
+        $products = DB::table('products')->select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+         'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
+          'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+           'updated_at'
+        )->where('id', $id)->paginate(PaginationCount);
 
-        $comments = DB::table('comments')->where('product_id',$id)->get();
+        $comments = DB::table('comments')->where('product_id',$id)->paginate(PaginationCount);
 
         return view('website.product-details', compact('products'), compact('comments'));
 
@@ -43,8 +50,12 @@ class Products extends Controller
 // <<<<<<<<<<<<<<<<<<<<<<all products>>>>>>>>>>>>>>>>>
 public function AllProducts()
     {
-        // $products = DB::table('product')->select('id','name','price','details_'.LaravelLocalization::getCurrentLocale().'as details')->get();
-        $products = DB::table('products')->get();
+        // $products = DB::table('product')->select('id','name','price','details_'.LaravelLocalization::getCurrentLocale().'as details')->paginate(PaginationCount);
+        $products = DB::table('products')->select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
+         'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+          'updated_at'
+       )->paginate(PaginationCount);
         return view("website.AllProducts", compact('products'));
 
     }
@@ -55,11 +66,15 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+         'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+          'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+        )
 
         ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 1)
-        ->get();
+        ->paginate(PaginationCount);
         return view("website.MaleJeans", compact('products'));
 
     }
@@ -75,10 +90,13 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 2)
-        ->get();
+        ->paginate(PaginationCount);
         return view("website.maleTeShirt", compact('products'));
 
     }
@@ -86,11 +104,15 @@ public function AllProducts()
     {
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 3)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.maleShoes", compact('products'));
+        // view("website.maleShoes")
 
     }
 
@@ -102,11 +124,14 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 4)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.WomenJeans", compact('products'));
 
     }
 
@@ -116,11 +141,14 @@ public function AllProducts()
     {
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 5)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.WomenTeShirt", compact('products'));
 
     }
     public function WomenShoes()
@@ -128,11 +156,14 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 6)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.WomenShoes", compact('products'));
 
     }
 
@@ -145,11 +176,14 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 7)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.KidsJeans", compact('products'));
 
     }
 
@@ -160,11 +194,14 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 8)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.KidsTeShirt", compact('products'));
 
     }
     public function KidsShoes()
@@ -172,11 +209,14 @@ public function AllProducts()
 
 
         $products = DB::table('products')
-        ->select('products.*')
-        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )        ->join('subcategories', 'subcategories.id', '=', 'products.id_subcategorie')
         ->where('subcategories.id', '=', 9)
-        ->get();
-        return view("website.shopJeansMale", compact('products'));
+        ->paginate(PaginationCount);
+        return view("website.KidsShoes", compact('products'));
 
     }
 
@@ -184,28 +224,101 @@ public function AllProducts()
     public function FashonKing()
     {
 
-        $products = DB::table('products')->orderBy('created_at', 'desc')->limit(3)->get();
+        $products = DB::table('products')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )
+        ->orderBy('created_at', 'desc')->limit(6)->get();
 
 
 
-        $bestSaleProducts = DB::table('products')->orderBy('sale', 'desc')->limit(2)->get();
+        $bestSaleProducts = DB::table('products')->orderBy('sale', 'desc')->limit(3)->get();
         return view("website.index", compact('products'), compact('bestSaleProducts'));
 
 
 
-
-
-
-
-
     }
+
+
+
+    public function salemail()
+    {
+
+        $details = DB::table('products')
+        ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+        'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+         'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+       )
+        ->orderBy('sale', 'desc')->limit(2)->paginate(PaginationCount);
+        return view("salemail",compact('details'));
+    }
+
+
+
+    public function sendMailNewProducts()
+
+{
+    // Mail::to($request->user())->send(new OrderShipped($order));
+    $products = DB::table('products')
+    ->select('products.id', 'products.name_en', 'products.name_ar','products.name_' . LaravelLocalization::getCurrentLocale() . ' as name',
+    'products.quantity', 'products.old_price', 'products.sale', 'products.price', 'products.desc_en', 'products.desc_ar','products.desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'products.code',
+     'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
+
+   )
+    ->orderBy('created_at', 'desc')->limit(1)->paginate(PaginationCount);
+    $emails=User::pluck('email')->toArray();
+    foreach( $emails as  $email){
+
+        Mail::To($email)->send(new MailNewproducts($products));
+    }
+
+     return redirect()->back()->with("mailSent","mail sent success") ;
+
+
+}
+
+
+
+public function sendMailNewOffer(Request $request)
+
+{
+
+$validated=$request->validate([
+    'title'=>'required',
+    'message'=>'required',
+]);
+
+$data=[
+    'title'=>$request->title,
+    'message'=>$request->message,
+
+];
+
+$emails=User::pluck("email")->toArray();
+
+foreach ($emails as $email) {
+    Mail::to($email)->send(new sendMailNewOffer($data));
+}
+return redirect()->back()->with("mailSent","mail sent success") ;
+
+
+
+}
+
+
+
+
+
 
     // public function bestSale()
     // {
 
     //     $bestSaleProducts = DB::table('products')
     //     ->select('products.*')
-    //     ->get();
+    //     ->paginate(PaginationCount);
     //     return view("website.index", compact('bestSaleProducts'));
 
 
@@ -213,12 +326,12 @@ public function AllProducts()
 
     // public function indexEN ($lang="en") {
     //     App::setLocale($lang);
-    //     $products = DB::table('product')->get();
+    //     $products = DB::table('product')->paginate(PaginationCount);
     //     return view("product",compact('products')) ;
     // }
     // public function indexAR ($lang="ar") {
     //     App::setLocale($lang);
-    //     $products = DB::table('product')->get();
+    //     $products = DB::table('product')->paginate(PaginationCount);
     //     return view("product",compact('products')) ;
     // }
 
@@ -299,129 +412,22 @@ return view("WelcomeAdminStration");
     }
 //////////////////=================////////////////////////=======================///////////////////////
 
-
 }
 
 
-
-    // use ProductsTraits ;
-
-    // public function store(Request $request)
-    // {
-
-
-
-    //     // $validator = Validator::make($request->all(), [
-    //     //     'name' => 'required|max:255',
-    //     //     'price' => 'required','numeric']
-
-    //     // );
-
-
-    //     // if( $validator->fails()){
-    //     //  return  redirect()->back()->withErrors($validator);
-    //     // }
-
-    //     // else{
-    //     //     return redirect()->back()->with([
-    //     //         "success"=>"add successful"
-    //     //   ]);
-    //     // }
-
-    //     $file_extension=$request->file('image')->getClientOriginalExtension();
-    //     $file_name=time().'.'.$file_extension;
-    //     $request->image->move('images',$file_name);
-
-    //     // return $this->SavePhoto( $path='images',$photo=$request->file('image'));
-    //     // $file_name=time().'.'.$photo->getClientOriginalExtension();
-
-    //     DB::table('product')->insert([
-    //         'name' => $request->name,
-    //         'price' => $request->price,
-    //         'photo'=>$file_name
-
-
-
-    //     ]);
-
-
-    //     // return dd($request->hasFile('image'));
-
-    // }
-
-
-
-    // public function delete(validationRequest $request)
-    // {
-
-    //     DB::table('product')->where('id', '=', $request->id)->delete();
-    // }
-
-    // public function update(validationRequest $request, $id)
-    // {
-
-    //     DB::table('product')->where('id', '=', $request->id)->update([
-
-    //         'name' => $request->name,
-    //         'price' => $request->price
-
-    //     ]);
-    // }
-
-
-    // public function edit(int $id)
-    // {
-    //     //     $products = DB::table('product')->select('id','name','price')->get();
-    //     // return view("edit",compact('products')) ;
-
-    //     $product = DB::table('product')->where('id', $id)->get();
-    //     return view('edit', compact('product'));
-    //     //return $id;
-
-    // }
-
-
-    // public function updatee(Request $request, $id)
-    // {
-
-    //     DB::table('product')->where('id','=',$request->id)->update([
-
-    //         'name' => $request->name,
-    //         'price' => $request->price
-
-    //     ]);
-    // }
-
-
-
-    // public function deletee(int $id)
-    // {
-
-    //     // $products =  DB::table('product')->find($id,$columns=['photo']);
-    //     // unlink('images/'.$products->photo);
-    //     return $this->DeletePhoto($id,$table='product',$path='images/');
-
-    //      DB::table('product')->where('id', '=',  $id)->delete();
-    //     return redirect()->back()->with([
-    //         "deltee" => "delet successful"
-    //     ]);
-
-
-
-    // }
 
     // public function getVideo()
     // {
 
 //        $video=Viewer::first();
 // return view("product")->with( 'video',$video);
-//$videos = DB::table('viewers')->get();
-// $videos = Viewer::select("viewers")->get();
+//$videos = DB::table('viewers')->paginate(PaginationCount);
+// $videos = Viewer::select("viewers")->paginate(PaginationCount);
 // event(new IncreaseVideoEvents($videos));
 
 
 // DB::table('viewers')->increment('viewers', 1);
-// $videos = Viewer::select("viewers")->get();
+// $videos = Viewer::select("viewers")->paginate(PaginationCount);
 // return view("Viewers", compact('videos'));
 
 //     }
@@ -437,72 +443,6 @@ return view("WelcomeAdminStration");
 // return view("nodverifyed2");
 
 //     }
-
-
-//     public function loginAdmin()
-//     {
-// return view("auth.loginAdmin");
-
-//     }
-
-
-//     public function loginProfessors()
-//     {
-// return view("auth.loginProfessors");
-
-//     }
-
-
-
-//     public function checkAdmin(Request $request)
-//     {
-
-//         $this->validate($request, [
-//             'email' => 'required|email',
-//             'password' => 'required',
-//         ]);
-//         if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
-//         {
-//             $admin = auth()->guard('admin')->user();
-
-//             return redirect()->route('nodverifyed');
-
-//         } else {
-//             return back()->with('error','your username and password are wrong.');
-//         }
-
-
-
-
-// }
-//     public function checkProfessors(Request $request)
-//     {
-
-//         $this->validate($request, [
-//             'email' => 'required|email',
-//             'password' => 'required',
-//         ]);
-//         if (auth()->guard('professor')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
-//         {
-//             $admin = auth()->guard('professor')->user();
-
-//             return redirect()->route('nodverifyed2');
-
-//         } else {
-//             return back()->with('error','your username and password are wrong.');
-//         }
-
-
-
-
-
-
-// }
-
-
-
-
-
 // public function logout(Request $request)
 // {   Auth::guard('web')->logout();
 //    // Auth::guard('admin')->logout();

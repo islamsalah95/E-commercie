@@ -1,70 +1,69 @@
-
-    <!-- header start -->
-    @include('website.nav')
-  {{-- {{asset('website/assets/img/product/background.jpg')}} --}}
+<!-- header start -->
+@include('website.nav')
+{{-- {{asset('website/assets/img/product/background.jpg')}} --}}
 {{-- <div class="breadcrumb-area bg-image-3 ptb-150"  style="background-image:url({{url('website/assets/img/product/bgtown.jpg')}})"> --}}
 
-    <!-- header end -->
-		<!-- Slider Start -->
+<!-- header end -->
+<!-- Slider Start -->
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-        {{-- <div class="container"> --}}
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
+
+
+{{-- <div class="container"> --}}
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
+    </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
 
         <div class="item active">
 
-          <img src="{{asset('website/assets/img/product/bg2.jpg')}}" alt="Los Angeles" style="width:100%;">
-          <div class="carousel-caption">
-            {{-- <h3>Los Angeles</h3>
+            <img src="{{ asset('website/assets/img/product/bg2.jpg') }}" alt="Los Angeles" style="width:100%;">
+            <div class="carousel-caption">
+                {{-- <h3>Los Angeles</h3>
             <p>LA is always so much fun!</p> --}}
-          </div>
+            </div>
         </div>
 
         <div class="item">
-          <img src="{{asset('website/assets/img/product/bg99.jpg')}}" alt="Chicago" style="width:100%;">
-          <div class="carousel-caption">
-            {{-- <h3>Chicago</h3>
+            <img src="{{ asset('website/assets/img/product/bg99.jpg') }}" alt="Chicago" style="width:100%;">
+            <div class="carousel-caption">
+                {{-- <h3>Chicago</h3>
             <p>Thank you, Chicago!</p> --}}
-          </div>
+            </div>
         </div>
 
         <div class="item">
-          <img src="{{asset('website/assets/img/product/bg1.jpg')}}" alt="New York" style="width:100%;">
-          <div class="carousel-caption">
-            {{-- <h3>New York</h3>
+            <img src="{{ asset('website/assets/img/product/bg1.jpg') }}" alt="New York" style="width:100%;">
+            <div class="carousel-caption">
+                {{-- <h3>New York</h3>
             <p>We love the Big Apple!</p> --}}
-          </div>
+            </div>
         </div>
 
-      </div>
+    </div>
 
-      <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
         <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right"></span>
         <span class="sr-only">Next</span>
-      </a>
-    </div>
-  </div>
+    </a>
+</div>
+</div>
 
 
 
@@ -72,13 +71,13 @@
 
 
 
-          <!-- Slider End -->
-    <!-- Product Area Start -->
+<!-- Slider End -->
+<!-- Product Area Start -->
 
-    <!-- Product Area End -->
-    {{-- <div class="product-price-wrapper">
+<!-- Product Area End -->
+{{-- <div class="product-price-wrapper">
                                                     <span>${{$product->price}} </span>
-                                                    @if ($product->sale!=null) <span
+                                                    @if ($product->sale != null) <span
                                                         class="product-price-old"
                                                         >-${{$product->price}}
                                                      </span> @endif
@@ -86,45 +85,46 @@
 
 
                                                 </div> --}}
-    <!-- Banner Start -->
-    <div class="banner-area pt-100 pb-70">
-        <div class="container">
-            <div class="banner-wrap">
-                <div class="row">
+<!-- Banner Start -->
+<div class="banner-area pt-100 pb-70">
+    <div class="container">
+        <div class="banner-wrap">
+            <div class="row">
 
 
-                    @foreach ($bestSaleProducts as $bestSaleProduct)
-                     <div class="col-lg-6 col-md-6">
+                @foreach ($bestSaleProducts as $bestSaleProduct)
+                    <div class="col-lg-4 col-md-4">
                         <div class="single-banner img-zoom mb-30">
-                            <a href="{{route('showDetails', ['id' => $bestSaleProduct->id])}}">
-                                <img src={{asset('website/assets/img/product/' . $bestSaleProduct->image )}} alt="" />
+                            <a href="{{ route('showDetails', ['id' => $bestSaleProduct->id]) }}">
+                                <img src={{ asset('website/assets/img/product/' . $bestSaleProduct->image) }}
+                                    alt="" />
                             </a>
                             <div class="banner-content">
 
-                               @if ($bestSaleProduct->sale!=null)
-                                <h5>
-                                    <h4>{{$bestSaleProduct->sale}}%Sale</h4>
-                                </h5>
+                                @if ($bestSaleProduct->sale != null)
+                                    <h5>
+                                        <h4>{{ $bestSaleProduct->sale }}%Sale</h4>
+                                    </h5>
                                 @endif
 
-                                @if ($bestSaleProduct->price!=null)
-                                <h5>Price
-                                    ${{$bestSaleProduct->price}}</h5>
+                                @if ($bestSaleProduct->price != null)
+                                    <h5>Price
+                                        ${{ $bestSaleProduct->price }}</h5>
                                 @endif
 
                             </div>
                         </div>
                     </div>
-                     @endforeach
+                @endforeach
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Banner End -->
-    <!-- New Products Start -->
-    {{-- <div class="product-area gray-bg pt-90 pb-65">
+<!-- Banner End -->
+<!-- New Products Start -->
+{{-- <div class="product-area gray-bg pt-90 pb-65">
         <div class="container">
             <div class="product-top-bar section-border mb-55">
                 <div class="section-title-wrap text-center">
@@ -132,135 +132,102 @@
                 </div>
             </div> --}}
 
-            <div class="product-area gray-bg pt-90 pb-65">
-                <div class="container">
-                    <div class="product-top-bar section-border mb-55">
-                        <div class="section-title-wrap text-center">
-                            <h3 class="section-title">New Products</h3>
-                        </div>
-                    </div>
+<div class="product-area gray-bg pt-90 pb-65">
+    <div class="container">
+        <div class="product-top-bar section-border mb-55">
+            <div class="section-title-wrap text-center">
+                <h3 class="section-title">New Products</h3>
+            </div>
+        </div>
 
-            <div class="grid-list-product-wrapper">
-                <div class="product-grid product-view pb-20">
-                    <div class="row">
-
-
+        <div class="grid-list-product-wrapper">
+            <div class="product-grid product-view pb-20">
+                <div class="row">
 
 
-                       @foreach ($products as $product)
+
+
+                    @foreach ($products as $product)
                         <div class="product-width col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-30">
-                        <div class="product-wrapper">
+                            <div class="product-wrapper">
                                 <div class="product-img">
-                                    <a href="{{route('showDetails', ['id' => $product->id])}}">
-                                        <img
-                                            alt=""
-                                            src={{asset('website/assets/img/product/' . $product->image )}}
-                                        />
+                                    <a href="{{ route('showDetails', ['id' => $product->id]) }}">
+                                        <img alt=""
+                                            src={{ asset('website/assets/img/product/' . $product->image) }} />
                                     </a>
-                                    @if ($product->sale!=null)
-
-                                    <span>-{{$product->sale}} </span>
+                                    @if ($product->sale != null)
+                                        <span>-{{ $product->sale }} </span>
                                     @endif
 
 
 
 
-<div class="product-action">
-  <a class="action-cart"
-        title="Add To Cart">
-<form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-   <input type="hidden" value="{{ $product->id }}" name="id">
-   <input type="hidden" value="{{ $product->name_en}}" name="name">
-   <input type="hidden" value="{{ $product->price }}" name="price">
-   <input type="hidden" value="{{asset('website/assets/img/product/' . $product->image )}}"  name="image">
-   <input type="hidden" value="{{ $product->quantity}}" name="quantity">
- <button  class="ion-ios-shuffle-strong"></button>
-</form>
-</div>
+                                    <div class="product-action">
+                                        <a class="action-cart" title="Add To Cart">
+                                            <form action="{{ route('cart.store') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" value="{{ $product->id }}" name="id">
+                                                <input type="hidden" value="{{ $product->name }}" name="name">
+                                                <input type="hidden" value="{{ $product->price }}" name="price">
+                                                <input type="hidden"
+                                                    value="{{ asset('website/assets/img/product/' . $product->image) }}"
+                                                    name="image">
+                                                <input type="hidden" value="{{ $product->quantity }}"
+                                                    name="quantity">
+                                                <button class="ion-ios-shuffle-strong"></button>
+                                            </form>
+                                    </div>
 
                                 </div>
-                                <div
-                                    class="product-content text-left"
-                                >
-                                    <div
-                                        class="product-hover-style"
-                                    >
+                                <div class="product-content text-left">
+                                    <div class="product-hover-style">
                                         <div class="product-title">
                                             <h4>
-                                                <a href={{route('showDetails', ['id' => $product->id])}}>{{$product->name_en}}</a
-                                                >
+                                                <a
+                                                    href={{ route('showDetails', ['id' => $product->id]) }}>{{ $product->name }}</a>
                                             </h4>
                                         </div>
                                         <div class="cart-hover">
                                             <h4>
-                                                <a href={{route('showDetails', ['id' => $product->id])}}>+ Add to
-                                                    cart</a
-                                                >
-                                                <a href={{route('showDetails', ['id' => $product->id])}}>+ Add tocart</a>
+                                                <a href={{ route('showDetails', ['id' => $product->id]) }}>+ Add to
+                                                    cart</a>
+                                                <a href={{ route('showDetails', ['id' => $product->id]) }}>+ Add
+                                                    tocart</a>
                                             </h4>
                                         </div>
                                     </div>
-                                    <div
-                                        class="product-price-wrapper"
-                                    >
+                                    <div class="product-price-wrapper">
 
-                                        <span>${{$product->price}} -</span>
-                                        <span
-                                            class="product-price-old"
-                                            >${{$product->price}}
+                                        <span>${{ $product->price }} -</span>
+                                        <span class="product-price-old">${{ $product->price }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="product-list-details">
                                     <h4>
                                         <a
-                                            href="{{route('showDetails', ['id' => $product->id])}}"
-                                            >{{$product->name_en}}</a
-                                        >
+                                            href="{{ route('showDetails', ['id' => $product->id]) }}">{{ $product->name }}</a>
                                     </h4>
-                                    <div
-                                        class="product-price-wrapper"
-                                    >
-                                        <span>${{$product->price}}</span>
-                                        <span
-                                            class="product-price-old"
-                                            >${{$product->price}}
+                                    <div class="product-price-wrapper">
+                                        <span>${{ $product->price }}</span>
+                                        <span class="product-price-old">${{ $product->price }}
                                         </span>
                                     </div>
                                     <p>
-                                        {{$product->desc_en}}
+                                        {{ $product->desc }}
                                     </p>
-                                    <div
-                                        class="shop-list-cart-wishlist"
-                                    >
-                                        <a href="#" title="Wishlist"
-                                            ><i
-                                                class="ion-android-favorite-outline"
-                                            ></i
-                                        ></a>
-                                        <a
-                                            href="#"
-                                            title="Add To Cart"
-                                            ><i
-                                                class="ion-ios-shuffle-strong"
-                                            ></i
-                                        ></a>
-                                        <a
-                                            href="#"
-                                            data-target="#exampleModal"
-                                            data-toggle="modal"
-                                            title="Quick View"
-                                        >
-                                            <i
-                                                class="ion-ios-search-strong"
-                                            ></i>
+                                    <div class="shop-list-cart-wishlist">
+                                        <a href="#" title="Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                        <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                        <a href="#" data-target="#exampleModal" data-toggle="modal" title="Quick View">
+                                            <i class="ion-ios-search-strong"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                    @endforeach
 
 
 
@@ -272,23 +239,22 @@
 
 
 
-                    </div>
                 </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
 
 
 
     <!-- New Products End -->
     <!-- Testimonial Area Collerction -->
-<div
-class="breadcrumb-area bg-image-3 ptb-150"  style="background-image:url({{url('website/assets/img/product/bg9.jpg')}})"
->
+    <div class="breadcrumb-area bg-image-3 ptb-150"
+        style="background-image:url({{ url('website/assets/img/product/bg9.jpg') }})">
         <div class="container">
             <div class="breadcrumb-content text-center">
                 <h3>Winter Collerction</h3>
                 <ul>
-                    <li><a href="{{route('AllProducts')}}">sale up to 70%</a></li>
+                    <li><a href="{{ route('AllProducts') }}">sale up to 70%</a></li>
                 </ul>
             </div>
         </div>
@@ -394,20 +360,15 @@ class="breadcrumb-area bg-image-3 ptb-150"  style="background-image:url({{url('w
         </div>title="Add To Cart"
     </div> --}}
     <!-- Newsletter Araea End -->
- @include('website.foter')
+    @include('website.foter')
 
 
- <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-   <input type="hidden" value="{{ $product->id }}" name="id">
-   <input type="hidden" value="{{ $product->name_en}}" name="name">
-   <input type="hidden" value="{{ $product->price }}" name="price">
-   <input type="hidden" value="{{asset('website/assets/img/product/' . $product->image )}}"  name="image">
-   <input type="hidden" value="{{ $product->quantity}}" name="quantity">
-   <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
-</form>
-
-
-
-
-
+    <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" value="{{ $product->id }}" name="id">
+        <input type="hidden" value="{{ $product->name }}" name="name">
+        <input type="hidden" value="{{ $product->price }}" name="price">
+        <input type="hidden" value="{{ asset('website/assets/img/product/' . $product->image) }}" name="image">
+        <input type="hidden" value="{{ $product->quantity }}" name="quantity">
+        <button class="px-4 py-2 text-white bg-blue-800 rounded">Add To Cart</button>
+    </form>

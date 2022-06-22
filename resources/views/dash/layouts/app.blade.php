@@ -57,7 +57,49 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
+
+{{-- <li class="nav-item d-none d-sm-inline-block">
+ {{-- <div class="mb-3 " style="margin-top: 8px;">
+       <form action="{{route('langs')}}" method="get">
+        <label for="" class="form-label">Lang</label>
+        <select class="form-select bg-dark" name="lang" id="lang">
+             <option class="bg-dark"  value="{{route('langs',['langs'=>"en"])}}">En</option>
+            <option class="bg-dark"  value="{{route('langs',['langs'=>"ar"])}}">Ar</option>
+            <option class="bg-dark"  value="en">En</option>
+            <option class="bg-dark"  value="ar">Ar</option>
+        </select>
+    </form>
+    </div>
+<a href="{{route('langs')}}" class="btn btn-outline-primary">ar</a>
+</li> --}}
+
             </ul>
+
+            {{-- <ul>
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li>
+                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul> --}}
+
+            <div class="dropdown open">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        {{ trans('messages.langStatus') }}
+                    </button>
+                <div class="dropdown-menu" aria-labelledby="triggerId">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+
+                    <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -332,7 +374,9 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1>send mail all users last 3 new producst</h1>
+                            <p>{{__('messages.requiredName') }}</p>
+
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -410,6 +454,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('assets/dist/js/pages/dashboard.js') }}"></script>
     @yield('js')
+
 </body>
 
 </html>

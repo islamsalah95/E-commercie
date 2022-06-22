@@ -1,7 +1,12 @@
 <?php
+use Illuminate\View\View;
+use App\Http\Controllers\Langs;
 use App\Http\Controllers\Pages;
+use Illuminate\Routing\RouteUri;
 use App\Http\Controllers\Products;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +18,13 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Controllers\Offers\OfferController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\PaymentProviderController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Symfony\Component\Routing\Route as ComponentRoutingRoute;
+// define('PaginationCount',7);
 
 /*
 |--------------------------------------------------------------------------
@@ -51,13 +60,21 @@ Route::get('shop', [Pages::class, 'shop'])->name('shop');
 Route::get('shop-list', [Pages::class, 'shoplist'])->name('shop-list');
 Route::get('wishlist', [Pages::class, 'wishlist'])->name('wishlist');
 
+// ==================================================website Males===================================================
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+
+Route::get('salemail', [Products::class, 'salemail'])->name("salemail");
+Route::get('sendMailNewProducts', [Products::class, 'sendMailNewProducts'])->name("sendMailNewProducts");
+Route::get('sendMailNewOffer', [Products::class, 'sendMailNewOffer'])->name("sendMailNewOffer");
+
 // ==================================================website routes===================================================
 Route::get('details/product/{id}', [Products::class, 'showDetails'])->name("showDetails");
 Route::post('comment/{product_id}/{name}', [Products::class, 'comment'])->name("comment");
-
 Route::get('FashonKing', [Products::class, 'FashonKing'])->name("FashonKing");
-
-
 // <<<<<<<<<<<<<<<<<<<<<<all categories>>>>>>>>>>>>>>>>>
 
 Route::get('Categorie/AllProducts', [Products::class, 'AllProducts'])->name("AllProducts");
@@ -79,6 +96,9 @@ Route::get('Categorie/KidsTeShirt', [Products::class, 'KidsTeShirt'])->name("Kid
 Route::get('Categorie/KidsShoes', [Products::class, 'KidsShoes'])->name("KidsShoes");
 
 // <<<<<<<<<<<<<<<<<<<<<<<language>>>>>>>>>>>>>>>>>
+Route::get('langs', [Langs::class, 'langs'])->name("langs");
+
+
 Route::get('bestSale', [Products::class, 'bestSale'])->name("bestSale");
 Route::get('welcome', function () {
     return view('welcome');
@@ -111,16 +131,19 @@ Route::post('/logout', function(){
 
 ///////////////////////////////////////////// dash/////////////////////////////////////////>>>>>>>>>>>>>>>>>>>>
 Route::middleware([adminstration::class])->group(function () {
-Route::get('dash',DashController::class)->name('dash');
+
+            Route::get('dash',[DashController::class,'dash'])->name('dash');
 Route::get('dash/create',[ProductController::class,'create'])->name('dash.create');
 Route::get('dash/index',[ProductController::class,'index'])->name('dash.index');
 Route::get('dash/edit/{id}',[ProductController::class,'edit'])->name('dash.edit');
 Route::post('dash/store',[ProductController::class,'store'])->name('dash.store');
 Route::put('dash/update/{id}',[ProductController::class,'update'])->name('dash.update');
 Route::delete('dash/delete/{id}',[ProductController::class,'delete'])->name('dash.delete');
+
+
+
+
  });
-
-
 ///////////////////////////////////////////// adminstration/////////////////////////////////////////>>>>>>>>>>>>>>>>>>>>
 Route::get('adminstrationlogin', [Products::class, 'adminstrationlogin'])->name('adminstrationlogin');
  Route::get('checkAdminstration', [Products::class, 'checkAdminstration'])->name('checkAdminstration');
@@ -146,3 +169,4 @@ Route::post('stripe/post', [StripePaymentController::class, 'stripePost'])->name
 Route::get('productscart/{price}', [productscart::class, 'productscart'])->name('productscart');
 });
 
+});
