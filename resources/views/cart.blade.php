@@ -51,7 +51,7 @@
 
                                     <form action="{{ route('cart.update') }}" method="post">
                                           @csrf
-                                  <input type="hidden" name="id" value="{{ $item->product_id }}" >
+                                  <input type="hidden" name="id" value="{{ $item->products_id }}" >
                                     <input type="number" name="quantity" value="{{ $item->quantity }}"
                                     class="w-6 text-center bg-gray-300" />
                                     <button type="submit" class="px-2 pb-2 ml-2 text-white bg-blue-500">update</button>
@@ -66,7 +66,7 @@
                               </td>
 
                               <td class="hidden text-right md:table-cell">
-                                <form action="{{ route('cart.remove', ['id'=>$item->product_id])}}" method="get">
+                                <form action="{{ route('cart.remove', ['id'=>$item->products_id])}}" method="get">
                                   @csrf
                                   <input type="hidden" value="" name="id">
                                   <button class="px-4 py-2 text-white bg-red-600">x</button>
@@ -74,7 +74,8 @@
 
                               </td>
                             </tr>
-                            @endauth
+
+                             @endif
                             @endforeach
 
                           </tbody>

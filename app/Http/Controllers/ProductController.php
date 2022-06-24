@@ -16,9 +16,9 @@ class ProductController extends Controller
 
         $subcategories = DB::table('subcategories')->get();
 
-        $brands = DB::table('brands')->get();
-
-        return view("dash/layouts/products/create",compact('subcategories','brands')) ;
+        // $brands = DB::table('brands')->get();
+// return dd( $subcategories);
+        return view("dash/layouts/products/create",compact('subcategories')) ;
 
 
     }
@@ -74,7 +74,7 @@ if ($request->hasFile('image')) {
 
     function edit ($id){
         $subcategories = DB::table('subcategories')->get();
-        $brands = DB::table('brands')->get();
+        // $brands = DB::table('brands')->get();
         $products = DB::table('products')
         ->
         select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
@@ -84,7 +84,7 @@ if ($request->hasFile('image')) {
        )
         ->where('id',$id)->get();
 
-        return view("dash/layouts/products/edit",compact('subcategories','brands','products')) ;
+        return view("dash/layouts/products/edit",compact('subcategories','products')) ;
 
 
     }

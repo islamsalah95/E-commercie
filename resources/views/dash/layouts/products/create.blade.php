@@ -20,14 +20,14 @@
             @csrf
             <div class="form-row my-3">
                 <div class="col-6">
-                    <input type="text" class="form-control" name="name
-                        " value="{{ old('name
-                                                                                ') }}" id=""
-                        placeholder="Name In English">
+                    <input type="text" class="form-control" name="name_en"
+                        value="{{ old('name
+                                                                                                                                ') }}"
+                        id="" placeholder="Name In English">
 
                 </div>
                 <div class="col-6">
-                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" id=""
+                    <input type="text" class="form-control" name="name_ar" value="{{ old('name') }}" id=""
                         placeholder="Name In Arabic">
                 </div>
             </div>
@@ -41,8 +41,8 @@
                         placeholder="Price">
                 </div>
                 <div class="col-4">
-                    <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}" id=""
-                        placeholder="Quantity">
+                    <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}"
+                        id="" placeholder="Quantity">
                 </div>
             </div>
             <div class="form-row my-3">
@@ -57,7 +57,7 @@
                     <label for="id_subcategorie">Sub Category</label>
                     <select name="id_subcategorie" id="id_subcategorie" class="form-control">
                         @foreach ($subcategories as $subcategorie)
-                            <option value="{{ $subcategorie->id }}">{{ $subcategorie->name }}</option>
+                            <option value="{{ $subcategorie->id }}">{{$subcategorie->name_en}}</option>
                         @endforeach
 
                     </select>
@@ -66,10 +66,12 @@
             </div>
             <div class="form-row my-3">
                 <div class="col-6">
-                    <textarea name="desc" id="" cols="30" class="form-control" rows="10" placeholder="Details In English">{{ old('desc') }}</textarea>
+                    <textarea name="desc_en" id="" cols="30" class="form-control" rows="10"
+                        placeholder="Details In English">{{ old('desc') }}</textarea>
                 </div>
                 <div class="col-6">
-                    <textarea name="desc" id="" cols="30" class="form-control" rows="10" placeholder="Details In Arabic">{{ old('desc') }}</textarea>
+                    <textarea name="desc_ar" id="" cols="30" class="form-control" rows="10"
+                        placeholder="Details In Arabic">{{ old('desc') }}</textarea>
                 </div>
             </div>
             <div class="form-row my-3">

@@ -52,13 +52,13 @@ class StripePaymentController extends Controller
 
     {
 
-        $settings=DB::table('cart')->where('user_id', '=',Auth::user()->id)->sum('price');
+        $settings=DB::table('carts')->where('user_id', '=',Auth::user()->id)->sum('price');
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         Stripe\Charge::create ([
 
-                "amount" => $settings,
+                "amount" => $settings*100,
 
                 "currency" => "usd",
 
@@ -79,7 +79,7 @@ class StripePaymentController extends Controller
         // $request->session()->flush();
 
         if (session()->has('success')) {
-            DB::table('orderss')->insert([
+            DB::table('orders')->insert([
                 'total_price' =>$settings,
                 'username'=>Auth::user()->name,
                 'user_id'=>Auth::user()->id,
@@ -87,7 +87,7 @@ class StripePaymentController extends Controller
 
 
             Cart::clear();
-            DB::table('cart')->where('user_id', '=',Auth::user()->id)->delete();
+            DB::table('carts')->where('user_id', '=',Auth::user()->id)->delete();
 
         }
 

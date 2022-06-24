@@ -20,8 +20,8 @@ class CartController extends Controller
     {
 
 
-        DB::table('cart')->insert([
-            'product_id' =>$request->session()->get('id_product'),
+        DB::table('carts')->insert([
+            'products_id' =>$request->session()->get('id_product'),
             'user_id'=>$request->session()->get('user_id'),
             'quantity'=>$request->session()->get('quantity_product'),
             'name'=>$request->session()->get('name_product'),
@@ -45,10 +45,10 @@ class CartController extends Controller
 
         // dd($cartItems);$array = Arr::add(['name' => 'Desk'], 'price', 100);
 
-        $cartItems = DB::table('cart')->get();
-        $getTotalPrices=DB::table('cart')->where('user_id', '=',Auth::user()->id)->count('price');
-        $settings=DB::table('cart')->where('user_id', '=',Auth::user()->id)->sum('price');
-        $getTotalItem=DB::table('cart')->where('user_id', '=',Auth::user()->id)->count('price');
+        $cartItems = DB::table('carts')->get();
+        $getTotalPrices=DB::table('carts')->where('user_id', '=',Auth::user()->id)->count('price');
+        $settings=DB::table('carts')->where('user_id', '=',Auth::user()->id)->sum('price');
+        $getTotalItem=DB::table('carts')->where('user_id', '=',Auth::user()->id)->count('price');
         return view('cart', compact('cartItems'))->with('settings',$settings)->with('getTotalItem',$getTotalItem);
 
 
@@ -134,7 +134,7 @@ class CartController extends Controller
         Cart::remove($request->id);
         session()->flash('success', 'Item Cart Remove Successfully');
 
-        DB::table('cart')->where('product_id', '=', $id)->delete();
+        DB::table('carts')->where('products_id', '=', $id)->delete();
 
         return redirect()->route('cart.list');
     }
@@ -149,36 +149,36 @@ class CartController extends Controller
         Cart::clear();
 
         session()->flash('success', 'All Item Cart Clear Successfully !');
-        DB::table('cart')->where('user_id', '=', $id)->delete();
+        DB::table('carts')->where('user_id', '=', $id)->delete();
 
         return redirect()->route('cart.list');
     }
 
-    public function getTotalPrice(Request $request)
-    {
+    // public function getTotalPrice(Request $request)
+    // {
 
-       $settings=DB::table('cart')->where('user_id', '=',Auth::user()->id)->sum('price');
-
-
-    //    return  route('cart.list') ;
-    return view('cart.list',['settingsss'=>$settings]);
-
-    //    $request->session()->put('getTotalPrices',$getTotalPrices);
-    //    return route('cart.list');
-
-    }
-
-    public function getTotalItem()
-    {
-
-        $cartItems = DB::table('cart')->get();
-        $getTotalItem=DB::table('cart')->where('user_id', '=',Auth::user()->id)->count('price');
-        return view('layouts.frontend', compact('cartItems'))->with('getTotalItem',$getTotalItem);
+    //    $settings=DB::table('carts')->where('user_id', '=',Auth::user()->id)->sum('price');
 
 
-       $getTotalItem=DB::table('cart')->where('user_id', '=',Auth::user()->id)->count('price');
-       return view('cart')->with('getTotalItem',$getTotalItem);
+    // //    return  route('cart.list') ;
+    // return view('cart.list',['settingsss'=>$settings]);
 
-    }
+    // //    $request->session()->put('getTotalPrices',$getTotalPrices);
+    // //    return route('cart.list');
+
+    // }
+
+    // public function getTotalItem()
+    // {
+
+    //     $cartItems = DB::table('carts')->get();
+    //     $getTotalItem=DB::table('carts')->where('user_id', '=',Auth::user()->id)->count('price');
+    //     return view('layouts.frontend', compact('cartItems'))->with('getTotalItem',$getTotalItem);
+
+
+    // //    $getTotalItem=DB::table('carts')->where('user_id', '=',Auth::user()->id)->count('price');
+    //    return view('cart')->with('getTotalItem',$getTotalItem);
+
+    // }
 
 }

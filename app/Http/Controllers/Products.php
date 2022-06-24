@@ -39,7 +39,7 @@ class Products extends Controller
 
     public function comment(Request $request,$product_id,$name)
     {
-        $request->validate(['message' => 'required|max:255']);
+        $request->validate(['message' => 'required']);
         DB::table('comments')->insert([
             'name' => $name,
             'message'=>$request->message,
