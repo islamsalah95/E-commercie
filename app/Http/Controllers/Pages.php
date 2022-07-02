@@ -31,6 +31,9 @@ class Pages extends Controller
     public function productdetails(){return view("website.product-details") ; }
     public function shop(){return view("website.shop") ; }
     public function shoplist(){return view("website.shop-list") ; }
+
+
+
     public function wishlist(){return view("website.wishlist") ; }
 
 

@@ -29,7 +29,11 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Quantity</th>
+                        <th>old Price</th>
+                        <th>sale</th>
+                        <th>L</th>
+                        <th>XL</th>
+                        <th>XXL</th>
                         <th>Status</th>
                         <th>Creation Date</th>
                         <th>Update Date</th>
@@ -41,13 +45,26 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->code }}</td>
-                            </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->price }} EGP</td>
-                            <td>{{ $product->quantity }}</td>
-                            <td>{{ $product->status }}</td>
+                            <td>{{ $product->old_price }} EGP</td>
+                            <td>{{ $product->sale }} EGP</td>
+                            <td>{{ $product->L }}</td>
+                            <td>{{ $product->XL }}</td>
+                            <td>{{ $product->XXL }}</td>
+
+                            @if ($product->L>0 || $product->XL>0 || $product->XXL>0)
+                                <td>Active</td>
+                            @else
+                                <td>Finesh</td>
+                            @endif
                             <td> {{ $product->created_at }}</td>
                             <td> {{ $product->updated_at }}</td>
+
+
+
+
+
                             <td>
                                 <a class="btn btn-outline-primary btn-sm rounded"
                                     href="{{ route('dash.edit', ['id' => $product->id]) }}">Edit</a>
@@ -60,10 +77,6 @@
                                     @method('DELETE')
                                     <button id="btnbtn" class="btn btn-outline-danger btn-sm rounded"> Delete </button>
                                 </form>
-
-
-
-
 
                             </td>
                         </tr>
@@ -127,3 +140,12 @@
 
 
     @endsection
+
+
+
+
+
+
+
+
+

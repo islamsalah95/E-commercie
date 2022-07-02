@@ -40,10 +40,26 @@
                     <input type="number" class="form-control" value="{{$product->price}}" name="price" id=""
                         placeholder="Price">
                 </div>
+
+
                 <div class="col-4">
-                    <input type="number" class="form-control" value="{{$product->quantity}}" name="quantity" id=""
-                        placeholder="Quantity">
+                    <input type="number" class="form-control" value="{{$product->old_price}}" name="old_price" id="old_price"
+                        placeholder="old_price">
                 </div>
+
+
+
+                <div class="col-4">
+                    <input type="number" class="form-control" value="{{$product->sale}}" name="sale" id="sale"
+                        placeholder="sale">
+                </div>
+
+
+
+
+
+
+        
             </div>
             <div class="form-row my-3">
                 <div class="col-4">
@@ -64,6 +80,27 @@
 
                     </select>
                 </div>
+
+
+                <div class="row">
+                    <div >
+                        <label for="id_subcategorie">L</label>
+                        <input type="number" class="form-control"  name="L" value="{{$product->L}}" id="L"
+                            placeholder="quantity ">
+                    </div>
+                    <div >
+                        <label for="id_subcategorie">XL</label>
+                        <input type="number" class="form-control" name="XL" value="{{$product->XL }}" id="XL"
+                            placeholder="quantity ">
+                    </div>
+                    <div >
+                        <label for="id_subcategorie">XXL</label>
+                        <input type="number" class="form-control" name="XXL" value="{{$product->XXL}}}}" id="XXL"
+                            placeholder="quantity ">
+                    </div>
+                </div>
+
+
 
             </div>
             <div class="form-row my-3">

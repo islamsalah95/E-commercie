@@ -40,6 +40,18 @@
                     <input type="number" class="form-control" name="price" value="{{ old('price') }}" id=""
                         placeholder="Price">
                 </div>
+
+                <div class="col-4">
+                    <input type="number" class="form-control" name="old_price" value="{{ old('old_price') }}" id="old_price"
+                        placeholder="old_price">
+                </div>
+
+
+                <div class="col-4">
+                    <input type="number" class="form-control" name="sale" value="{{ old('sale') }}" id="sale"
+                        placeholder="sale">
+                </div>
+
                 <div class="col-4">
                     <input type="number" class="form-control" name="quantity" value="{{ old('quantity') }}"
                         id="" placeholder="Quantity">
@@ -62,6 +74,27 @@
 
                     </select>
                 </div>
+
+<div class="row">
+    <div >
+        <label for="id_subcategorie">L</label>
+        <input type="number" class="form-control" name="L" value="{{ old('L') }}" id="L"
+            placeholder="quantity ">
+    </div>
+    <div >
+        <label for="id_subcategorie">XL</label>
+        <input type="number" class="form-control" name="XL" value="{{ old('XL') }}" id="XL"
+            placeholder="quantity ">
+    </div>
+    <div >
+        <label for="id_subcategorie">XXL</label>
+        <input type="number" class="form-control" name="XXL" value="{{ old('XXL') }}" id="XXL"
+            placeholder="quantity ">
+    </div>
+</div>
+
+
+
 
             </div>
             <div class="form-row my-3">

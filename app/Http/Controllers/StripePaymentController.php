@@ -53,6 +53,9 @@ class StripePaymentController extends Controller
     {
 
         $settings=DB::table('carts')->where('user_id', '=',Auth::user()->id)->sum('price');
+        $carts=DB::table('carts')->where('user_id', '=',Auth::user()->id)->get();
+
+
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -79,13 +82,21 @@ class StripePaymentController extends Controller
         // $request->session()->flush();
 
         if (session()->has('success')) {
-            DB::table('orders')->insert([
-                'total_price' =>$settings,
+            foreach ($carts as $cart) {
+
+                DB::table('orders')->insert([
+                'item_price' =>$cart->price,
                 'username'=>Auth::user()->name,
                 'user_id'=>Auth::user()->id,
+                'cartSize'=>$cart->cartSize,
+
                  ]);
 
 
+                 DB::table('products')->where('id','=',$cart->products_id)->decrement($cart->cartSize,1);
+
+
+                }
             Cart::clear();
             DB::table('carts')->where('user_id', '=',Auth::user()->id)->delete();
 

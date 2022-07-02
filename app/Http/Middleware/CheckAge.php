@@ -17,15 +17,23 @@ class CheckAge
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
-    {
-        $age=Auth::User()->age;
-        if ($age>15) {
-        return  $next($request);
+    public function handle(Request $request,Closure $next){
 
-        }
-else {
-    abort(403);
-}
+
+            // if (!Auth::guard('supervisor')->check()) {
+            //     // return redirect()->route('showLoginForm.supervisor');
+            //     return redirect(route('FashonKing'));
+            // }
+           $age=auth('adminstration')->user()->age;
+           $id=auth('adminstration')->user()->id;
+           $nationalid=auth('adminstration')->user()->nationalid;
+
+           if ($age===25 and $id===1 and $nationalid===29504092201551) {
+                // return redirect()->route('showLoginForm.supervisor');
+                return $next($request);
+            }
+
+            return redirect(route('accessSupervisor'));
+
     }
 }

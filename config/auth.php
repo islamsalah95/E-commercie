@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -35,6 +36,7 @@ return [
     |
     */
 
+
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -49,17 +51,15 @@ return [
             'driver' => 'session',
             'provider' => 'adminstrations',
         ],
-
+        'supervisor' => [
+            'driver' => 'session',
+            'provider' => 'supervisors',
+        ],
 
     ],
 
 
-    // 'guards' => [
-    //     'admin' => [
-    //         'driver' => 'session',
-    //         'provider' => 'admins',
-    //     ],
-    // ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -84,15 +84,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
+
         'adminstrations' => [
             'driver' => 'eloquent',
             'model' => App\Models\Adminstration::class,
         ],
-
+        'supervisors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Supervisor::class,
+        ],
 
 
 
@@ -119,6 +119,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'adminstrations' => [
+            'provider' => 'adminstrations',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

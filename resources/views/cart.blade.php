@@ -18,6 +18,7 @@
                             <tr class="h-12 uppercase">
                               <th class="hidden md:table-cell"></th>
                               <th class="text-left">Name</th>
+                              <th class="text-left">Size</th>
                               <th class="pl-5 text-left lg:text-right lg:pl-0">
                                 <span class="lg:hidden" title="Quantity">Qtd</span>
                                 <span class="hidden lg:inline">Quantity</span>
@@ -45,6 +46,11 @@
 
                                 </a>
                               </td>
+
+                              <td>
+                                  <p class="mb-2 md:ml-4">{{ $item->cartSize}}</p>
+                              </td>
+
                               <td class="justify-center mt-6 md:justify-end md:flex">
                                 <div class="h-10 w-28">
                                   <div class="relative flex flex-row w-full h-8">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\validationRequest;
 use Cart;
 use config;
 use Illuminate\Support\Arr;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 use Site;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 class CartController extends Controller
 {
 
@@ -26,10 +29,21 @@ class CartController extends Controller
             'quantity'=>$request->session()->get('quantity_product'),
             'name'=>$request->session()->get('name_product'),
             'price'=>$request->session()->get('price_product'),
-            'image'=>$request->session()->get('image_product'),   ]);
+            'image'=>$request->session()->get('image_product'),
+            'cartSize'=>$request->session()->get('cartSize_product'),
+
+
+        ]);
 
             return redirect()->route('cart.list');
-
+            // DB::table('carts')->insert([
+            //     'products_id' =>$request->id,
+            //     'user_id'=>$request->name,
+            //     'price'=>$request->price,
+            //     'image'=>$request->image,
+            //     'quantity'=>$request->quantity,
+            //     'cartSize'=>$request->cartSize,
+            // ]);
 
     }
 
@@ -71,6 +85,18 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+        $validated = $request->validate([
+            'id' => 'required',
+            'name' => 'required',
+            'price' =>'required',
+            'quantity' => 'required',
+            'cartSize' =>[
+                'required',
+                Rule::in(['L', 'XL','XXL']),
+            ],
+
+        ]);
+
 
 
         Cart::add([
@@ -79,9 +105,12 @@ class CartController extends Controller
             'price' => $request->price,
             'quantity' => $request->quantity,
             'user_id' => Auth::user()->id,
+            'cartSize' => $request->cartSize,
             'attributes' => array(
                 'image' => $request->image,
             )
+
+
         ]);
         // $request->session()->push( 'user_id',Auth::user()->id);
         // Session::put('user_id', Auth::user()->id);
@@ -94,6 +123,7 @@ class CartController extends Controller
         $request->session()->put('price_product', $request->price);
         $request->session()->put('quantity_product', $request->quantity);
         $request->session()->put('user_id', Auth::user()->id);
+        $request->session()->put('cartSize_product', $request->cartSize);
         $request->session()->put('image_product',  $request->image);
         // 'id' => $request->id=session(['product_id']),
         // 'name' => $request->name=session(['product_name']),

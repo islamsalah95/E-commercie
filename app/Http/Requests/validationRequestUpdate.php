@@ -24,7 +24,6 @@ class validationRequestUpdate extends FormRequest
     public function rules()
     {
         return  [
-            'id' => 'required|max:255',
             'name_en' => 'required|max:255',
             'name_ar' => 'required|max:255',
             'code' => 'required',
@@ -34,8 +33,10 @@ class validationRequestUpdate extends FormRequest
             'desc_ar' => 'required|max:255',
             'id_brand' => 'nullable|integer',
             'id_subcategorie' => 'nullable|integer',
+            'L' => 'nullable|integer|max:5000',
+            'XL' => 'nullable|integer|max:5000',
+            'XXL' =>'nullable|integer|max:5000',
             'image'=> 'nullable|max:100',
-            'message'=> 'required|max:255',
 
         ];
 

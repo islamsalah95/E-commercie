@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Validator;
 use App\Models\User;
+use App\traits\Code;
 use App\Models\Viewer;
+use App\Mail\SpecialPass;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Mail\MailNewproducts;
 use App\Mail\sendMailNewOffer;
@@ -19,29 +21,36 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rules\Unique;
 use App\Http\Requests\validationRequest;
+use Illuminate\Support\Facades\Validator;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class Products extends Controller
 {
+
     public function showDetails($id)
     {
         $products = DB::table('products')->select('id', 'name_en', 'name_ar','name_' . LaravelLocalization::getCurrentLocale() . ' as name',
          'quantity', 'old_price', 'sale', 'price', 'desc_en', 'desc_ar','desc_' . LaravelLocalization::getCurrentLocale() . ' as desc', 'code',
-          'image', 'secondimage', 'status', 'id_subcategorie', 'id_brand', 'created_at',
+          'image', 'secondimage', 'status', 'L', 'XL', 'XXL', 'id_brand', 'created_at',
            'updated_at'
         )->where('id', $id)->paginate(PaginationCount);
-
         $comments = DB::table('comments')->where('product_id',$id)->paginate(PaginationCount);
-
-        return view('website.product-details', compact('products'), compact('comments'));
+        $commentsCounter = DB::table('comments')->where('product_id',$id)->count('product_id');
+        $commentsAverage= DB::table('comments')->where('product_id',$id)->average('rate');
+        $commentsAverages=round($commentsAverage);
+// return  $commentsAverages;
+return view('website.product-details', compact('products'), compact('comments','commentsCounter','commentsAverages'));
 
     }
 
     public function comment(Request $request,$product_id,$name)
     {
-        $request->validate(['message' => 'required']);
+        $request->validate(['message' => 'required'
+,'rate' => 'required|max:5|integer'
+    ]);
         DB::table('comments')->insert([
             'name' => $name,
+            'rate' => $request->rate,
             'message'=>$request->message,
             'product_id'=>$product_id
         ]);
@@ -268,7 +277,7 @@ public function AllProducts()
      'products.image', 'products.secondimage', 'products.status', 'products.id_subcategorie', 'products.id_brand', 'products.created_at',
 
    )
-    ->orderBy('created_at', 'desc')->limit(1)->paginate(PaginationCount);
+    ->orderBy('created_at', 'desc')->limit(3)->get();
     $emails=User::pluck('email')->toArray();
     foreach( $emails as  $email){
 
@@ -280,7 +289,17 @@ public function AllProducts()
 
 }
 
+public function sendMailSpecialPass(Request $request)
 
+{
+$request->validate(['emailAdmin' => 'required|email|unique:adminstrations,email']);
+    $obj = new Code();
+    DB::table('code_admin_verfications')->insert(['CodeAdminVerfication' =>$obj->code()]);
+    Mail::To($request->emailAdmin)->send(new SpecialPass($obj->code()));
+     return redirect()->back()->with("mailSent","mail sent success") ;
+// return dd($request);
+
+}
 
 public function sendMailNewOffer(Request $request)
 

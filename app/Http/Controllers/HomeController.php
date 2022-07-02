@@ -28,6 +28,6 @@ class HomeController extends Controller
 
         // $products = DB::table('product')->get();
         // return view("product", compact('products'));
-        return redirect()->route('cart.list');
+        return redirect()->route('FashonKing');
     }
 }

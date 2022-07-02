@@ -21,6 +21,9 @@ class Adminstration extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'nationalid',
+        'age',
+
 
     ];
 
@@ -43,5 +46,5 @@ class Adminstration extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-   
+
 }

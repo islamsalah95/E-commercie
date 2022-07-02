@@ -29,8 +29,12 @@ return new class extends Migration
             $table->char('secondimage');
             $table->tinyInteger('status')->default('1');
             $table->bigInteger('id_brand');
+            $table->smallInteger('L');
+            $table->smallInteger('XL');
+            $table->smallInteger('XLL');
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();        });
+            $table->timestamp('updated_at')->useCurrent();
+          });
 
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('id_subcategories')->references('id')->on('subcategories');

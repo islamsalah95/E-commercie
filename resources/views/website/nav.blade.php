@@ -40,7 +40,8 @@
                         <div class="logo">
                             <a href={{ route('index') }}>
                                 <img style="width: 183px;
-                            height: 50px;" alt="" src={{ url('website/assets/img/logo/logo.png') }} />
+                            height: 50px;" alt=""
+                                    src={{ url('website/assets/img/logo/logo.png') }} />
                             </a>
                         </div>
                     </div>
@@ -122,33 +123,37 @@
                                                     <a href={{ route('about-us') }}>about us
                                                     </a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href={{ route('shop') }}>shop Grid</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('shop-list') }}>shop list</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('product-details') }}>product details</a>
-                                                </li>
+                                                </li> --}}
                                                 <li>
                                                     <a href={{ route('cart.list') }}>cart page</a>
                                                 </li>
+
                                                 <li>
+                                                    <a href={{ route('closedOrdersCustomer') }}>closed Orders</a>
+                                                </li>
+                                                {{-- <li>
                                                     <a href={{ route('checkout') }}>checkout</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('cart.list') }}>wishlist</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('my-account') }}>my account</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('login-register') }}>login / register</a>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <a href={{ route('contact') }}>contact</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </li>
                                         <li>
@@ -159,25 +164,23 @@
                             </div>
 
 
-
-
-
-                                <div class="dropdown" style="position: relative;
+                            <div class="dropdown"
+                                style="position: relative;
                                 bottom: -34px;
                                 left: 17px;">
-                                    <button class="btn btn-dark dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            {{ trans('messages.langStatus') }}
-                                            </button>
-                                    <div class="dropdown-menu" aria-labelledby="triggerId">
-                                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
-                                        <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="triggerId"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ trans('messages.langStatus') }}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="triggerId">
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                             {{ $properties['native'] }}
                                         </a>
-                                        @endforeach
-                                    </div>
+                                    @endforeach
                                 </div>
+                            </div>
 
 
 
@@ -210,12 +213,13 @@
                                                 </a>
 
                                             <li class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                <a class="dropdown-item" href="{{ route('logoutUser') }}"
+                                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                     {{ __('Logout') }}
                                                 </a>
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                <form id="logout-form" action="{{ route('logoutUser') }}" method="POST"
                                                     class="d-none">
                                                     @csrf
                                                 </form>
@@ -224,7 +228,55 @@
 
                                             </li>
                                         @endguest
-                                        <li><a href="{{ route('adminstrationlogin') }}">login admin</a></li>
+
+
+                                        @if (Auth::guard('adminstration')->check())
+                                            <li class="nav-item dropdown">
+                                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" v-pre>
+                                                    {{ Auth::guard('adminstration')->user()->name }} </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('logout.admin') }}">logout
+                                                    admin</a>
+                                            </li>
+                                        @else
+                                            <li class="nav-item">
+                                            <li><a class="nav-link" href="{{ route('showLoginForm') }}">login
+                                                    admin</a></li>
+                                            </li>
+
+                                            <li class="nav-item">
+                                            <li><a class="nav-link" href="{{ route('showRegistrationForm') }}">register
+                                                    admin</a></li>
+                                            </li>
+                                        @endif
+
+
+
+
+                                        {{-- @if (Auth::guard('supervisor')->check())
+                                            <li class="nav-item dropdown">
+                                                <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                                    href="#" role="button" data-bs-toggle="dropdown"
+                                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    {{ Auth::guard('supervisor')->user()->name }} </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('logout.admin') }}">logout
+                                                    admin</a>
+                                            </li>
+                                        @else
+                                            <li class="nav-item">
+                                            <li><a class="nav-link"
+                                                    href="{{ route('showLoginForm.supervisor') }}">login supervisor
+                                                </a></li>
+                                            </li>
+                                        @endif  --}}
+
 
                                     </ul>
                                 </div>

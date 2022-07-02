@@ -55,7 +55,7 @@
 
 
 
-                
+
                 <div class="grid-list-product-wrapper">
                     <div class="product-list product-view pb-20">
                         <div class="row">
@@ -64,7 +64,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-1.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-1.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -126,7 +127,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -140,7 +142,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-2.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-2.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a class="action-wishlist" href="#" title="Wishlist">
@@ -199,7 +202,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -213,7 +217,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-3.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-3.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -274,7 +279,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -288,7 +294,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-4.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-4.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a class="action-wishlist" href="#" title="Wishlist">
@@ -347,7 +354,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -361,7 +369,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-5.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-5.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -423,7 +432,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -437,7 +447,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-6.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-6.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a class="action-wishlist" href="#" title="Wishlist">
@@ -496,7 +507,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -510,7 +522,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-7.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-7.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -572,7 +585,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -586,12 +600,14 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-8.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-8.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -642,7 +658,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -656,7 +673,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-1.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-1.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -718,7 +736,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -732,7 +751,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-2.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-2.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a class="action-wishlist" href="#" title="Wishlist">
@@ -791,7 +811,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -805,7 +826,8 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-3.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-3.jpg') }} />
                                         </a>
                                         @if ($product->sale != null)
                                             <span>-{{ $product->sale }}</span>
@@ -867,7 +889,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -881,17 +904,20 @@
                                 <div class="product-wrapper">
                                     <div class="product-img">
                                         <a href="product-details.php">
-                                            <img alt="" src={{ url('website/assets/img/product/product-4.jpg') }} />
+                                            <img alt=""
+                                                src={{ url('website/assets/img/product/product-4.jpg') }} />
                                         </a>
                                         <div class="product-action">
                                             <a class="action-cart" title="Add To Cart">
                                                 <form action="{{ route('cart.store') }}" method="POST"
                                                     enctype="multipart/form-data">
                                                     @csrf
-                                                    <input type="hidden" value="{{ $product->id }}" name="id">
+                                                    <input type="hidden" value="{{ $product->id }}"
+                                                        name="id">
                                                     <input type="hidden" value="{{ $product->name }}"
                                                         name="name">
-                                                    <input type="hidden" value="{{ $product->price }}" name="price">
+                                                    <input type="hidden" value="{{ $product->price }}"
+                                                        name="price">
                                                     <input type="hidden"
                                                         value="{{ asset('website/assets/img/product/' . $product->image) }}"
                                                         name="image">
@@ -945,7 +971,8 @@
                                         <div class="shop-list-cart-wishlist">
                                             <a href="#" title="Wishlist"><i
                                                     class="ion-android-favorite-outline"></i></a>
-                                            <a href="#" title="Add To Cart"><i class="ion-ios-shuffle-strong"></i></a>
+                                            <a href="#" title="Add To Cart"><i
+                                                    class="ion-ios-shuffle-strong"></i></a>
                                             <a href="#" data-target="#exampleModal" data-toggle="modal"
                                                 title="Quick View">
                                                 <i class="ion-ios-search-strong"></i>
@@ -1050,7 +1077,8 @@
                             <div id="slider-range"></div>
                             <div class="price_slider_amount">
                                 <div class="label-input">
-                                    <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                                    <input type="text" id="amount" name="price"
+                                        placeholder="Add Your Price" />
                                 </div>
                                 <button type="button">Filter</button>
                             </div>
@@ -1270,7 +1298,7 @@
                 <div class="col-md-6">
                     <div class="copyright">
                         <p>
-                            <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
+                            <a target="_blank" href="https://www.templateshub.net">Fashion King</a>
                         </p>
                     </div>
                 </div>
@@ -1374,7 +1402,8 @@
                             </div>
                             <div class="product-quantity">
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02" />
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                        value="02" />
                                 </div>
                                 <button>Add to cart</button>
                             </div>

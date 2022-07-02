@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Adminstration;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,9 +65,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CheckAge' => \App\Http\Middleware\CheckAge::class,
         'AdminAuthenticated' => \App\Http\Middleware\AdminAuthenticated::class,
-        'professorAuthenticated' => \App\Http\Middleware\professorAuthenticated::class,
+        'supervisor' => \App\Http\Middleware\Supervisor::class,
         'adminstration' => \App\Http\Middleware\Adminstration::class,
-
+        'CheckSupervisor' => \App\Http\Middleware\CheckSupervisor::class,
+        'CheckUser' => \App\Http\Middleware\CheckUser::class,
         /**** OTHER MIDDLEWARE ****/
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
@@ -78,3 +78,6 @@ class Kernel extends HttpKernel
 
     ];
 }
+
+
+

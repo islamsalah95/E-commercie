@@ -6,8 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <div class="container">
     <div class="breadcrumb-content text-center">
         <h3>SINGLE PRODUCT</h3>
@@ -47,25 +50,29 @@
                             <a data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}
                                 data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}>
                                 <img data-image
-                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }} alt="" />
+                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }}
+                                    alt="" />
                             </a>
                             <a data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}
                                 data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}>
                                 <img data-image
-                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }} alt="" />
+                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }}
+                                    alt="" />
                             </a>
                             <a data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}
                                 data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}>
                                 <img data-image
-                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }} alt="" />
+                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }}
+                                    alt="" />
                             </a>
                             <a data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}
                                 data-image src={{ asset('website/assets/img/product/' . $product->secondimage) }}>
                                 <img data-image
-                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }} alt="" />
+                                    src={{ asset('website/assets/img/product/' . $product->secondimage) }}
+                                    alt="" />
                             </a>
                         </div>
-                        <span>sale-29%</span>
+                        <span>{{ $product->sale }}</span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
@@ -73,23 +80,43 @@
                         <h4>{{ $product->name }}</h4>
                         <div class="rating-review">
                             <div class="pro-dec-rating">
-                                <i class="ion-android-star-outline theme-star"></i>
-                                <i class="ion-android-star-outline theme-star"></i>
-                                <i class="ion-android-star-outline theme-star"></i>
-                                <i class="ion-android-star-outline theme-star"></i>
-                                <i class="ion-android-star-outline"></i>
+                                @for ($i = 1; $i <= $commentsAverages; $i++)
+                                    <i class="ion-android-star-outline theme-star"></i>
+                                @endfor
+
+                                @for ($i = 1; $i <= 5 - $commentsAverages; $i++)
+                                    <i class="ion-android-star-outline"></i>
+                                @endfor
+
+
                             </div>
                             <div class="pro-dec-review">
                                 <ul>
-                                    <li>32 Reviews</li>
-                                    <li>Add Your Reviews</li>
+                                    <li>{{ $commentsCounter }} Reviews</li>
+
+
+                                    <li>
+
+                                        @if (!Auth::guard('web')->check())
+                                            <h4><span>to add review </span><a style="color:blue "
+                                                    href="{{ route('login') }}">Login</a></h4>
+                                        @else
+
+
+                                            <a href="#"data-bs-toggle="modal" data-bs-target="#myModal">Add Your
+                                                Reviews</a>
+                                        @endif
+
+
+
+                                    </li>
+
+
                                 </ul>
                             </div>
                         </div>
                         <span>${{ $product->price }}</span>
-                        <div class="in-stock">
-                            <p>Available: <span>In stock</span></p>
-                        </div>
+
                         <p>
                             {{ $product->desc }}
                         </p>
@@ -114,27 +141,103 @@
                                     </li>
                                 </ul>
                             </div> --}}
+                        @if ($product->L > 0 || $product->XL > 0 || $product->XXL > 0)
+                            <div class="in-stock">
+                                <p>Available: <span>In stock</span></p>
+                            </div>
+                        @else
+                            <div class="text-danger">
+                                <p>Not Avilable: <span class="text-danger">Out stock</span></p>
+                            </div>
+                        @endif
+
+
+
+
+
                         <div class="quality-add-to-cart">
                             <div class="quality">
-                                <label>Qty: {{ $product->quantity }}</label>
+                                <label>
+                                    @if ($product->L > 0)
+                                        L
+                                    @endif
+
+                                </label>
+
+
+                                <label>
+                                    @if ($product->XL > 0)
+                                        XL
+                                    @endif
+
+                                </label>
+
+
+                                <label>
+                                    @if ($product->XXL > 0)
+                                        XXL
+                                    @endif
+
+                                </label>
+
                             </div>
 
+
+
+
+
+
+
                             <div class="shop-list-cart-wishlist">
-                                <form action="{{ route('cart.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('cart.store') }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" value="{{ $product->id }}" name="id">
-                                    <input type="hidden" value="{{ $product->name }}" name="name">
-                                    <input type="hidden" value="{{ $product->price }}" name="price">
-                                    <input type="hidden"
-                                        value="{{ asset('website/assets/img/product/' . $product->image) }}"
-                                        name="image">
-                                    <input type="hidden" value="{{ $product->quantity }}" name="quantity">
-                                    <span>Add To Cart</span>
-                                    <button class="ion-ios-shuffle-strong"></button>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            @if ($product->L > 0||$product->XL > 0||$product->XXL > 0)
+
+                                            <select name="cartSize">Size
+                                                <option value="choese" selected>choese Size</option>
+
+                                                @if ($product->L > 0)
+                                                <option value="L" id="L">L</option>
+                                            @endif
+
+                                            @if ($product->XL > 0)
+                                            <option value="XL" id="XL">XL</option>
+                                            @endif
+
+                                        @if ($product->XXL > 0)
+                                        <option value="XXL" id="XXL">XXL</option>
+                                        @endif
+                                            </select>
+
+
+                                        </div>
+
+
+                                        <div class="col-3">
+                                            <input type="hidden" placeholder="{{ $product->id }}" value="{{ $product->id }}" name="id">
+                                            <input type="hidden" value="{{ $product->name }}" name="name">
+                                            <input type="hidden" value="{{ $product->price }}" name="price">
+                                            <input type="hidden"
+                                                value="{{ asset('website/assets/img/product/' . $product->image) }}"
+                                                name="image">
+                                            <input type="hidden" value="{{ $product->quantity }}" name="quantity">
+
+                                            <span>Add To Cart</span>
+                                            <button class="ion-ios-shuffle-strong"></button>
+                                        </div>
+                                        @endif
+
                                 </form>
 
                             </div>
                         </div>
+
+                        @error('cartSize')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                         {{-- <div class="pro-dec-categories">
                                 <ul>
                                     <li class="categories-title">
@@ -233,12 +336,17 @@
                                 <div class="sin-rattings">
                                     <div class="star-author-all">
                                         <div class="ratting-star f-left">
-                                            <i class="ion-star theme-color"></i>
-                                            <i class="ion-star theme-color"></i>
-                                            <i class="ion-star theme-color"></i>
-                                            <i class="ion-star theme-color"></i>
-                                            <i class="ion-star theme-color"></i>
-                                            <span>(5)</span>
+
+                                            <div class="pro-dec-rating">
+                                                @for ($i = 1; $i <= $comment->rate; $i++)
+                                                    <i class="ion-android-star-outline theme-star"></i>
+                                                @endfor
+
+                                            </div>
+
+
+
+                                            <span>({{ $comment->rate }})</span>
                                         </div>
                                         <div class="ratting-author f-right">
                                             <h3>{{ $comment->name }}</h3>
@@ -258,28 +366,42 @@
                             <div class="ratting-form">
                                 {{-- <form method="post" action="{{route('comment', ['product_id' => $product->id])}}">
                                         @csrf --}}
-                                <div class="star-box">
-                                    <h2>Rating:</h2>
-                                    <div class="ratting-star">
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star theme-color"></i>
-                                        <i class="ion-star"></i>
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="rating-form-style mb-20">
 
 
 
-
-
+                                            @if (!Auth::guard('web')->check())
+                                                <h4><span>to add review </span><a style="color:blue "
+                                                        href="{{ route('login') }}">Login</a></h4>
+                                            @else
+                                                {{-- @if ($errors->any())
+                                                    @foreach ($errors->all() as $error)
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                <li>{{ $error }}</li>
+                                                            </ul>
+                                                        </div>
+                                                    @endforeach
+                                                @endif --}}
+                                                @if (session()->has('success'))
+                                                    <div class="alert alert-success">
+                                                        <ul>
+                                                            <li>add review success</li>
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal">
+                                                    Open Review modal
+                                                </button>
+                                            @endif
 
                                             {{-- {{ Auth::user()->name }}
                                                 auth()->guard('admin')->user() --}}
-                                            @if (Auth::guard('web')->check())
+                                            {{-- @if (Auth::guard('web')->check())
                                                 <form method="post"
                                                     action="{{ route('comment', ['product_id' => $product->id, 'name' => Auth::user()->name]) }}">
                                                     @csrf
@@ -290,7 +412,9 @@
 
                                     <div class="col-md-12">
                                         <div class="rating-form-style form-submit">
+
                                             <textarea name="message" placeholder="message" type="text" id="message"></textarea>
+                                            <span class="alert alert-danger" id="Error"></span>
                                             @if (!Auth::guard('web')->check())
                                                 <h4><span>to add review </span><a style="color:blue "
                                                         href="{{ route('login') }}">Login</a></h4>
@@ -316,26 +440,77 @@
                                         </div>
                                     </div>
                                 </div>
-                                </form>
+                                </form> --}}
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+
+                @if (Auth::guard('web')->check())
+                    <!-- The Modal -->
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Modal Heading</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <form method="post"
+                                    action="{{ route('comment', ['product_id' => $product->id, 'name' => Auth::user()->name]) }}">
+                                    @csrf
+                                    <!-- Modal body -->
+
+                                    <div class="modal-body">
+                                        <select name="rate" id="rate">
+
+                                            <option value="choese" selected>choese</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <textarea name="message" placeholder="message" type="text" id="message"></textarea>
+                                    </div>
+
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"
+                                            data-bs-dismiss="modal">add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
 @endforeach
 
-{{-- <script >
-  document.getElementById("butto").onclick=function (){
-if(!Auth::guard('web')->check())
-{return "login first";}
-else {
-    return $next($request);
+{{-- @include('website.foter') --}}
 
-}
 
-}
-        </script> --}}
-<!-- Footer style Start -->
-@include('website.foter')
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>

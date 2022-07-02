@@ -14,19 +14,86 @@
         </div>
 
         <div class="row">
+
+<div class="col text-center">
+@if (Auth::guard('adminstration')->check())
+<h1 class="text text-primary">welcome dasboard {{Auth::guard('adminstration')->user()->name }}</h1>
+
+@else
+<h1 class="text text-primary">welcome dasboard {{Auth::guard('supervisor')->user()->name }}</h1>
+
+@endif
+
+
+
+            </div>
+        </div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+        <div class="row">
+
+            <div class="col text-center">
+
+                <h6 class="text text-dark">click the button below to send last 2 products all users emails</h6>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col text-center">
+
+                <a id="btn" type="button" class="btn btn-outline-primary"
+                href="{{ route('sendMailNewProducts') }}">send</a>
+            </div>
+        </div>
+
+
+        {{-- <div class="row">
             <div class="col">
 
                 <a id="btn" type="button" class="btn btn-outline-primary"
                     href="{{ route('sendMailNewProducts') }}">send</a>
             </div>
-        </div>
+        </div> --}}
 
 
     </div>
 
     <br>
     {{-- ///////////////////////////////// --}}
-    <div class="container" style="margin-top: 94px">
+    {{-- <form action="{{route('sendMailSpecialPass')}}" method="get" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+                <label for="emailAdmin"></label>
+                <input type="email" class="form-control" name="emailAdmin" id="emailAdmin" placeholder="{{old('emailAdmin')}}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button type="submit">sendMailSpecialPass</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    </form> --}}
+
+
+    {{-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ --}}
+    {{-- <div class="container" style="margin-top: 94px">
 
 
 
@@ -73,10 +140,6 @@
                 </div>
             </div>
 
-
-
-
-
             <div class="row">
                 <div class="col text-center">
 
@@ -92,7 +155,7 @@
 
 
 
-    </div>
+    </div> --}}
 
 
     <script>

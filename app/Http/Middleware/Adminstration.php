@@ -17,17 +17,19 @@ class Adminstration
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$guards)
-    {
-        $guards = empty($guards) ? [null] : $guards;
-        foreach ($guards as $guard) {
-            if (!Auth::guard('adminstration')->check()) {
-                return redirect(route('adminstrationlogin'));
-            }
+    public function handle(Request $request, Closure $next, ...$guards) {
+
+    $guards = empty($guards) ? [null] : $guards;
+
+    foreach ($guards as $guard) {
+        if (!Auth::guard('adminstration')->check()) {
+            // return redirect()->route('showLoginForm.supervisor');
+            return view('page404',['message'=>'This page access only Supervisor']);
         }
-        // $cart=auth()->user()->cart;
-        return $next($request);
     }
+
+    return $next($request);
 }
 
-?>
+
+}
